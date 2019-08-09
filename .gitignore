@@ -1,0 +1,16 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints
+data
+logs
+tmp
+checkpoint
+.cache
+.env
+.idea/
+.vscode/
+.pytest_cache
+*.sqlite3
+test/textures.py
+venv
