@@ -73,3 +73,9 @@ def upsample(input_data, name, method='deconv'):
                                             kernel_initializer=tf.random_normal_initializer())
 
     return output
+
+
+def leaky_relu(alpha):
+    def op(inputs):
+        return tf.nn.leaky_relu(inputs, alpha=alpha, name='leaky_relu')
+    return op

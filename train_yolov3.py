@@ -114,7 +114,6 @@ class TrainYOLOv3(object):
 
     def train(self):
         self.sess.run(tf.global_variables_initializer())
-
         # try:
         #     print('=> Restoring weights from: %s ... ' % self.initial_weight)
         #     self.loader.restore(self.sess, self.initial_weight)
@@ -142,7 +141,7 @@ class TrainYOLOv3(object):
                 # print input shape
                 # for var in train_data:
                 #     print(var.shape)
-                current_step = epoch * self.steps_per_period + step
+                current_step = (epoch - 1) * self.steps_per_period + step
 
                 _, summary, train_step_loss, global_step_val = self.sess.run(
                     [train_op, self.write_op, self.loss, self.global_step], feed_dict={
@@ -177,7 +176,8 @@ class TrainYOLOv3(object):
                 test_epoch_loss.append(test_step_loss)
 
             train_epoch_loss, test_epoch_loss = np.mean(train_epoch_loss), np.mean(test_epoch_loss)
-            ckpt_file = "./checkpoint/yolov3_test_loss=%.4f.ckpt" % test_epoch_loss
+            # ckpt_file = "./checkpoint/yolov3_test_loss=%.4f.ckpt" % test_epoch_loss
+            ckpt_file = './checkpoint/yolov3_{}.ckpt'.format(epoch * self.steps_per_period)
             log_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
             print("=> Epoch: %2d Time: %s Train loss: %.2f Test loss: %.2f Saving %s ..."
                   % (epoch, log_time, train_epoch_loss[0], test_epoch_loss[0], ckpt_file))
